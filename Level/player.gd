@@ -3,12 +3,16 @@ extends Area2D
 var grid
 var sprite
 var current_frame = 0
-var grid_pos = Vector2(1, 1)
+@export var grid_pos = Vector2(1, 1)
+
+signal move
+signal damaged
 
 func _ready():
 	grid = get_node("../BattleGrid")
 	sprite = $PlayerSprite
 	update_pos()
+	print(global_position)
 
 
 func _process(delta):
@@ -45,6 +49,7 @@ func _process(delta):
 func beat_step():
 	frame_advance()
 	update_pos()
+	move.emit()
 
 
 func frame_advance():
@@ -53,7 +58,7 @@ func frame_advance():
 
 
 func update_pos():
-	position = grid.to_global(grid.map_to_local(Vector2(grid_pos[0] - 5, grid_pos[1] - 5)))
+	position = grid.to_global(grid.map_to_local(Vector2(grid_pos[0], grid_pos[1])))
 
 func edge():
 	print("bunp")

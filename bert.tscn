@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm2lkqk6ekxd2"]
+
+[ext_resource type="Script" uid="uid://775c5pxcx2w2" path="res://Level/bert.gd" id="1_15gvk"]
+[ext_resource type="Texture2D" uid="uid://cnt4dxtnbi1kg" path="res://Sprites/Bert1.png" id="2_2dct6"]
+[ext_resource type="Texture2D" uid="uid://cw8rbju08mpff" path="res://Sprites/Bert2.png" id="3_bbt0u"]
+[ext_resource type="Texture2D" uid="uid://cs6wq323j0ygt" path="res://Sprites/BertShoot.png" id="4_54yvs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6fg3j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2dct6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bbt0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_54yvs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bert" type="Area2D"]
+script = ExtResource("1_15gvk")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6fg3j")
+offset = Vector2(0, -67)

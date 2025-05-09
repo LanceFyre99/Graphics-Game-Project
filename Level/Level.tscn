@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=4 uid="uid://8outq1w00o8h"]
 
-[ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Level/screen_origin.gd" id="1_6lumq"]
+[ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Scripts/screen_origin.gd" id="1_6lumq"]
 [ext_resource type="Texture2D" uid="uid://bdlqaiftptdcl" path="res://Sprites/tile.png" id="1_i5eh5"]
-[ext_resource type="Script" uid="uid://1rajiv8msiak" path="res://Level/player.gd" id="2_i5eh5"]
+[ext_resource type="Script" uid="uid://1rajiv8msiak" path="res://Scripts/player.gd" id="2_i5eh5"]
 [ext_resource type="Texture2D" uid="uid://v1rg82ej7hws" path="res://Sprites/playerGrey_walk1.png" id="3_u0wck"]
 [ext_resource type="Texture2D" uid="uid://cbmrn5ikxlby2" path="res://Sprites/playerGrey_walk2.png" id="4_j3llj"]
-[ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://bert.tscn" id="7_chl2c"]
-[ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://goob.tscn" id="8_wp1u0"]
+[ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
+[ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2nifc"]
 texture = ExtResource("1_i5eh5")

@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=4 uid="uid://8outq1w00o8h"]
+
+[ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Scripts/screen_origin.gd" id="1_6lumq"]
+[ext_resource type="Texture2D" uid="uid://bdlqaiftptdcl" path="res://Sprites/tile.png" id="1_i5eh5"]
+[ext_resource type="Script" uid="uid://1rajiv8msiak" path="res://Scripts/player.gd" id="2_i5eh5"]
+[ext_resource type="Texture2D" uid="uid://v1rg82ej7hws" path="res://Sprites/playerGrey_walk1.png" id="3_u0wck"]
+[ext_resource type="Texture2D" uid="uid://cbmrn5ikxlby2" path="res://Sprites/playerGrey_walk2.png" id="4_j3llj"]
+[ext_resource type="PackedScene" uid="uid://civokcy7p0t3b" path="res://Attacks/bert_bullet.tscn" id="7_6lumq"]
+[ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
+[ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2nifc"]
+texture = ExtResource("1_i5eh5")
+texture_region_size = Vector2i(18, 12)
+0:0/size_in_atlas = Vector2i(10, 10)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_wkftn"]
+tile_size = Vector2i(190, 130)
+sources/1 = SubResource("TileSetAtlasSource_2nifc")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6lumq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_u0wck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_j3llj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Root" type="Node"]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="ScreenOrigin" type="Node2D" parent="."]
+script = ExtResource("1_6lumq")
+bert_scene = ExtResource("7_chl2c")
+
+[node name="CrappyBlackBackground" type="Polygon2D" parent="ScreenOrigin"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-80, 944, 1648, 952, 1648, -40, -99, -62)
+
+[node name="BattleGrid" type="TileMapLayer" parent="ScreenOrigin"]
+position = Vector2(308, 281)
+scale = Vector2(0.8, 0.8)
+skew = 0.602139
+tile_map_data = PackedByteArray("AAACAAMAAQAAAAAAAAACAAIAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAAEAAEAAQAAAAAAAAAFAAEAAQAAAAAAAAAGAAEAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAGAAIAAQAAAAAAAAAFAAIAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAEAAMAAQAAAAAAAAAFAAMAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAMAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAAEAAAAAQAAAAAAAAAFAAAAAQAAAAAAAAAGAAAAAQAAAAAAAAAHAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_wkftn")
+
+[node name="Player" type="Area2D" parent="ScreenOrigin"]
+position = Vector2(447, 410)
+script = ExtResource("2_i5eh5")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="ScreenOrigin/Player"]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_6lumq")
+offset = Vector2(0, -52.825)
+
+[node name="Bert" parent="ScreenOrigin" instance=ExtResource("7_chl2c")]
+position = Vector2(-149, -81)
+
+[node name="BertBullet" parent="ScreenOrigin" instance=ExtResource("7_6lumq")]
+position = Vector2(-146, -241)
+
+[node name="Goob" parent="ScreenOrigin" instance=ExtResource("8_wp1u0")]
+position = Vector2(-289, -69)
+
+[connection signal="move" from="ScreenOrigin/Player" to="ScreenOrigin" method="_on_player_move"]

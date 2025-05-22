@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://civokcy7p0t3b"]
+
+[ext_resource type="Script" uid="uid://btx2acyuej12o" path="res://Scripts/bert_bullet.gd" id="1_s0ju2"]
+[ext_resource type="Texture2D" uid="uid://dyaatx0onalve" path="res://Sprites/BertBullet.png" id="2_uu4tr"]
+
+[node name="BertBullet" type="Area2D"]
+script = ExtResource("1_s0ju2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_uu4tr")
+offset = Vector2(0, -67)

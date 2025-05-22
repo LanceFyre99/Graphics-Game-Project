@@ -8,7 +8,7 @@ var player
 var origin
 var current_frame = 0
 var active = false
-var grid_pos = Vector2(-100, -100)
+@export var grid_pos = Vector2(-100, -100)
 #active should always be set to true upon instantiating a new entity
 #grid_pos should always be set to something valid upon instantiating a new entity
 

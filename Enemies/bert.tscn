@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm2lkqk6ekxd2"]
+[gd_scene load_steps=7 format=3 uid="uid://bm2lkqk6ekxd2"]
 
-[ext_resource type="Script" uid="uid://775c5pxcx2w2" path="res://Level/bert.gd" id="1_15gvk"]
+[ext_resource type="Script" uid="uid://775c5pxcx2w2" path="res://Scripts/bert.gd" id="1_15gvk"]
 [ext_resource type="Texture2D" uid="uid://cnt4dxtnbi1kg" path="res://Sprites/Bert1.png" id="2_2dct6"]
 [ext_resource type="Texture2D" uid="uid://cw8rbju08mpff" path="res://Sprites/Bert2.png" id="3_bbt0u"]
 [ext_resource type="Texture2D" uid="uid://cs6wq323j0ygt" path="res://Sprites/BertShoot.png" id="4_54yvs"]
+[ext_resource type="Texture2D" uid="uid://bdt8pukpiu2i1" path="res://Sprites/BertCharge.png" id="4_rt0w2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6fg3j"]
 animations = [{
@@ -13,6 +14,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_bbt0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rt0w2")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_54yvs")

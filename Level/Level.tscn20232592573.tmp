@@ -27,9 +27,8 @@ tile_size = Vector2i(190, 130)
 sources/1 = SubResource("TileSetAtlasSource_2nifc")
 sources/0 = SubResource("TileSetAtlasSource_6lumq")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_chl2c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wp1u0"]
 shader = ExtResource("5_chl2c")
-shader_parameter/active = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6lumq"]
 animations = [{
@@ -70,7 +69,7 @@ position = Vector2(447, 410)
 script = ExtResource("2_i5eh5")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="ScreenOrigin/Player"]
-material = SubResource("ShaderMaterial_chl2c")
+material = SubResource("ShaderMaterial_wp1u0")
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6lumq")
 offset = Vector2(0, -52.825)

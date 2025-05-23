@@ -106,6 +106,7 @@ func dodge():
 func undodge():
 	rotation_degrees = 0
 	sprite.material.set_shader_parameter("active", false)
+	dodging = false
 
 
 func edge():

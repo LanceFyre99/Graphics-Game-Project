@@ -39,7 +39,7 @@ func beat_step():
 func spawn_attack():
 	var shot = bullet.instantiate()
 	
-	shot.grid_pos = Vector2(grid_pos[0] - 1, grid_pos[1])
+	shot.position_self(grid_pos)
 	shot.active = true
 	
 	origin.add_child(shot)

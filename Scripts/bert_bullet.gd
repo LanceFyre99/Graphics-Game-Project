@@ -6,5 +6,6 @@ func position_self(parent_pos):
 func beat_step():
 	grid_pos[0] -= 1
 	if grid_pos[0] < 0:
+		attack_despawned.emit()
 		queue_free()
 	update_pos()

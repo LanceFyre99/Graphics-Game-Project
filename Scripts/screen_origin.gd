@@ -2,9 +2,11 @@ extends Node2D
 
 @export var bert_scene: PackedScene
 
-var attack_list = 0
-var templist
+var attack_num = 0
+var temp_attack_num = 0
+var move_holder = ""
 
+signal player_move_ack(action: String)
 signal attack_move
 signal enemy_move
 
@@ -12,17 +14,35 @@ func _ready():
 	spawn_bert()
 
 
-func _on_player_move():
-	attack_move.emit()
-	enemy_move.emit()
+func _on_player_move(action):
+	move_holder = action
+	if attack_num <= 0:
+		post_attack_movement()
+	else:
+		attack_move.emit()
 
 
-func _on_attack_move():
+func _on_attack_spawned():
+	attack_num += 1
+
+
+func _on_attack_despawned():
+	attack_num -= 1
+
+
+func _on_attack_move_ack():
 	#make sure all attacks have moved
 	#after all have moved, send signals for enemies to move
-	attack_list -= 1
-	if attack_list <= 0:
-		enemy_move.emit()
+	temp_attack_num -= 1
+	if temp_attack_num <= 0:
+		post_attack_movement()
+
+
+func post_attack_movement():
+	player_move_ack.emit(move_holder)
+	move_holder = ""
+	enemy_move.emit()
+	temp_attack_num = attack_num
 
 
 func spawn_bert():

@@ -4,9 +4,7 @@ extends Node2D
 
 var attack_num = 0
 var temp_attack_num = 0
-var move_holder = ""
 
-signal player_move_ack(action: String)
 signal attack_move
 signal enemy_move
 
@@ -14,8 +12,7 @@ func _ready():
 	spawn_bert()
 
 
-func _on_player_move(action):
-	move_holder = action
+func _on_player_move():
 	if attack_num <= 0:
 		post_attack_movement()
 	else:
@@ -39,8 +36,6 @@ func _on_attack_move_ack():
 
 
 func post_attack_movement():
-	player_move_ack.emit(move_holder)
-	move_holder = ""
 	enemy_move.emit()
 	temp_attack_num = attack_num
 

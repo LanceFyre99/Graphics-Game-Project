@@ -8,6 +8,7 @@ func _ready():
 
 	if active:
 		#link to origin signals
+		print(origin)
 		origin.attack_move.connect(_on_attack_move)
 		update_pos()
 

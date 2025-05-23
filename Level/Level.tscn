@@ -8,8 +8,8 @@
 [ext_resource type="Shader" uid="uid://bajf66a6uq2pc" path="res://Shaders/dodge.gdshader" id="5_chl2c"]
 [ext_resource type="PackedScene" uid="uid://civokcy7p0t3b" path="res://Attacks/bert_bullet.tscn" id="7_6lumq"]
 [ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
-[ext_resource type="Script" uid="uid://jd0njcm0rl12" path="res://Scripts/card.gd" id="8_6fg3j"]
 [ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
+[ext_resource type="Script" uid="uid://dnea26683yksi" path="res://Scripts/deck.gd" id="9_6fg3j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6lumq"]
 texture = ExtResource("1_i5eh5")
@@ -75,9 +75,9 @@ material = SubResource("ShaderMaterial_chl2c")
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6lumq")
 offset = Vector2(0, -52.825)
-script = ExtResource("8_6fg3j")
 
 [node name="Deck" type="Node" parent="ScreenOrigin/Player"]
+script = ExtResource("9_6fg3j")
 
 [node name="Bert" parent="ScreenOrigin" instance=ExtResource("7_chl2c")]
 position = Vector2(-149, -81)

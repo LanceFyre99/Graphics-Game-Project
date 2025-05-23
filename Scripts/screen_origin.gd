@@ -6,6 +6,7 @@ var attack_num = 0
 var temp_attack_num = 0
 
 signal attack_move
+signal check_player_hit
 signal enemy_move
 
 func _ready():
@@ -36,6 +37,7 @@ func _on_attack_move_ack():
 
 
 func post_attack_movement():
+	check_player_hit.emit()
 	enemy_move.emit()
 	temp_attack_num = attack_num
 

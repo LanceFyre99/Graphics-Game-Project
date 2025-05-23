@@ -9,7 +9,6 @@ var current_frame = 0
 @export var grid_pos = Vector2(1, 1)
 
 signal move(action: String)
-signal damaged
 
 func _ready():
 	origin = get_node("..")
@@ -57,6 +56,13 @@ func _process(_delta):
 			beat_step()
 		else:
 			dodge()
+
+
+func _on_damaged(damage):
+	if dodging:
+		print("Dodged!")
+	else:
+		print("Ow! You took " + str(damage) + " damage!")
 
 
 func beat_step():

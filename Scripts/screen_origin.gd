@@ -10,7 +10,7 @@ signal check_player_hit
 signal enemy_move
 
 func _ready():
-	spawn_bert()
+	spawn_wave()
 
 
 func _on_player_move():
@@ -42,10 +42,26 @@ func post_attack_movement():
 	temp_attack_num = attack_num
 
 
-func spawn_bert():
-	var bert = bert_scene.instantiate()
+func spawn_wave():
+	var spawns = []
+	var count = 1
 	
-	bert.grid_pos = Vector2(5, 1)
-	bert.active = true
+	for i in range(4):
+		if randi() % count == 0:
+			spawns.append(true)
+		else:
+			spawns.append(false)
+		count += 1
+	print(spawns)
+	for i in range(4):
+		if spawns[i]:
+			spawn_enemy(bert_scene, Vector2(i + 4, randi() % 4))
+
+
+func spawn_enemy(package, pos):
+	var new = package.instantiate()
 	
-	add_child(bert)
+	new.grid_pos = pos
+	new.active = true
+	
+	add_child(new)

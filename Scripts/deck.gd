@@ -1,5 +1,6 @@
 extends Node
 
+#re-using enemy attack for testing purposes
 var deck_file = ["res://Attacks/bert_bullet.tscn"]
 var deck_list = []
 var leng

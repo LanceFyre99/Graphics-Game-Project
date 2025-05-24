@@ -9,7 +9,7 @@ func _ready():
 	super()
 	
 	bullet = load("res://Attacks/bert_bullet.tscn")
-	shot_timer = randi() % 3 + 4
+	shot_timer = randi() % 4 + 4
 
 
 func beat_step():
@@ -17,7 +17,7 @@ func beat_step():
 	if shot_timer == 0:
 		frame_set(3)
 		spawn_attack()
-		shot_timer = randi() % 3 + 3
+		shot_timer = randi() % 4 + 3
 	elif shot_timer == 1:
 		frame_set(2)
 		#trigger warning box

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://s8osqlg8syuv"
+path="res://.godot/imported/Throwing Fire.ogg-0bfeb2b81d813a397432c95664edeb9e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Songs/Throwing Fire.ogg"
+dest_files=["res://.godot/imported/Throwing Fire.ogg-0bfeb2b81d813a397432c95664edeb9e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

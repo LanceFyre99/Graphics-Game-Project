@@ -6,7 +6,7 @@ var sprite
 var deck
 var dodging = false
 var current_frame = 0
-@export var grid_pos = Vector2(1, 1)
+@export var grid_pos = Vector2i(1, 1)
 
 signal move(action: String)
 
@@ -79,7 +79,7 @@ func frame_advance():
 
 
 func update_pos():
-	position = grid.to_global(grid.map_to_local(Vector2(grid_pos[0], grid_pos[1])))
+	position = grid.to_global(grid.map_to_local(Vector2i(grid_pos[0], grid_pos[1])))
 
 
 func dodge():

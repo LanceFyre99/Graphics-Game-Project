@@ -8,7 +8,7 @@ var player
 var origin
 var current_frame = 0
 var active = false
-@export var grid_pos = Vector2(-100, -100)
+@export var grid_pos = Vector2i(-100, -100)
 #active should always be set to true upon instantiating a new entity
 #grid_pos should always be set to something valid upon instantiating a new entity
 
@@ -35,4 +35,4 @@ func frame_set(new):
 	sprite.frame = current_frame
 
 func update_pos():
-	position = grid.to_global(grid.map_to_local(Vector2(grid_pos[0], grid_pos[1])))
+	position = grid.to_global(grid.map_to_local(Vector2i(grid_pos[0], grid_pos[1])))

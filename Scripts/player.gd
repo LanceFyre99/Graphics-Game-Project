@@ -2,6 +2,7 @@ extends Area2D
 
 var origin
 var grid
+var timer
 var sprite
 var deck
 var dodging = false
@@ -9,10 +10,12 @@ var current_frame = 0
 @export var grid_pos = Vector2i(1, 1)
 
 signal move(action: String)
+signal miss
 
 func _ready():
 	origin = get_node("..")
 	grid = get_node("../BattleGrid")
+	timer = get_node("../BPMTimer")
 	sprite = $PlayerSprite
 	deck = $Deck
 	update_pos()
@@ -20,42 +23,48 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("move_left"):
-		if(grid_pos[0] > 0):
-			grid_pos[0] -= 1
-			beat_step()
-		else:
-			edge()
+		if move_check():
+			if(grid_pos[0] > 0):
+				grid_pos[0] -= 1
+				beat_step()
+			else:
+				edge()
 	
 	if Input.is_action_just_pressed("move_right"):
-		if(grid_pos[0] < 3):
-			grid_pos[0] += 1
-			beat_step()
-		else:
-			edge()
+		if move_check():
+			if(grid_pos[0] < 3):
+				grid_pos[0] += 1
+				beat_step()
+			else:
+				edge()
 	
 	if Input.is_action_just_pressed("move_up"):
-		if(grid_pos[1] > 0):
-			grid_pos[1] -= 1
-			beat_step()
-		else:
-			edge()
+		if move_check():
+			if(grid_pos[1] > 0):
+				grid_pos[1] -= 1
+				beat_step()
+			else:
+				edge()
 	
 	if Input.is_action_just_pressed("move_down"):
-		if(grid_pos[1] < 3):
-			grid_pos[1] += 1
-			beat_step()
-		else:
-			edge()
+		if move_check():
+			if(grid_pos[1] < 3):
+				grid_pos[1] += 1
+				beat_step()
+			else:
+				edge()
 	
 	if Input.is_action_just_pressed("deck_call"):
-		move.emit()
-		deck.play_card(grid_pos, origin)
+		if move_check():
+			move.emit()
+			deck.play_card(grid_pos, origin)
 	
 	if Input.is_action_just_pressed("dodge"):
-		if dodging:
-			beat_step()
-		else:
-			dodge()
+		if move_check():
+			if dodging:
+				beat_step()
+			else:
+				dodge()
 
 
 func _on_damaged(damage):
@@ -64,6 +73,18 @@ func _on_damaged(damage):
 	else:
 		print("Ow! You took " + str(damage) + " damage!")
 
+
+func move_check():
+	if timer.moved:
+		miss.emit()
+		return false
+	else:
+		timer.moved = true
+		return true
+
+func _on_timeout_no_move():
+	if timer.beatnum >= 5:
+		miss.emit()
 
 func beat_step():
 	if dodging:

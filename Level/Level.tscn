@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://8outq1w00o8h"]
+[gd_scene load_steps=28 format=4 uid="uid://8outq1w00o8h"]
 
 [ext_resource type="AudioStream" uid="uid://s8osqlg8syuv" path="res://Audio/Songs/Throwing Fire.ogg" id="1_6fg3j"]
 [ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Scripts/screen_origin.gd" id="1_6lumq"]
@@ -10,9 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cbmrn5ikxlby2" path="res://Sprites/playerGrey_walk2.png" id="4_j3llj"]
 [ext_resource type="Shader" uid="uid://bajf66a6uq2pc" path="res://Shaders/dodge.gdshader" id="5_chl2c"]
 [ext_resource type="Shader" uid="uid://dbt0iij44el47" path="res://Shaders/warn.gdshader" id="6_fgcxn"]
+[ext_resource type="AudioStream" uid="uid://3hdn2liepnp6" path="res://Audio/Sfx/Damage.wav" id="6_t67x2"]
 [ext_resource type="Script" uid="uid://dtb0ceetf034y" path="res://Scripts/grid.gd" id="7_4jlx7"]
 [ext_resource type="PackedScene" uid="uid://civokcy7p0t3b" path="res://Attacks/bert_bullet.tscn" id="7_6lumq"]
 [ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
+[ext_resource type="Script" uid="uid://duark4allpx8b" path="res://Scripts/damage_sfx.gd" id="7_xtb7t"]
 [ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
 [ext_resource type="Script" uid="uid://dnea26683yksi" path="res://Scripts/deck.gd" id="9_6fg3j"]
 [ext_resource type="Texture2D" uid="uid://4776c2flooo8" path="res://Sprites/blank_tile.png" id="9_mdaqt"]
@@ -81,6 +83,11 @@ stream = ExtResource("1_6fg3j")
 stream = ExtResource("3_66v8m")
 max_polyphony = 2
 
+[node name="Damage" type="AudioStreamPlayer" parent="BPMTimer"]
+stream = ExtResource("6_t67x2")
+max_polyphony = 2
+script = ExtResource("7_xtb7t")
+
 [node name="CrappyBlackBackground" type="Polygon2D" parent="."]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(1.73481e-05, 912, 1608, 912, 1608, 2.61756e-07, 1.90735e-06, -3.8147e-06)
@@ -137,4 +144,6 @@ position = Vector2(-96, 128)
 [connection signal="grid_update" from="." to="BattleGrid" method="_on_grid_update"]
 [connection signal="timeout" from="BPMTimer" to="BPMTimer" method="_on_timeout"]
 [connection signal="timeout" from="BPMTimer" to="BeatTracker" method="_on_bpm_tracker_timeout"]
+[connection signal="timeout_no_move" from="BPMTimer" to="Player" method="_on_timeout_no_move"]
+[connection signal="miss" from="Player" to="BPMTimer/Damage" method="_on_player_miss"]
 [connection signal="move" from="Player" to="." method="_on_player_move"]

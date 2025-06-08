@@ -12,6 +12,7 @@ var active = false
 #active should always be set to true upon instantiating a new entity
 #grid_pos should always be set to something valid upon instantiating a new entity
 
+
 func _ready():
 	#get nodes for reference
 	origin = get_node("..")
@@ -30,9 +31,19 @@ func frame_advance():
 	current_frame = (current_frame + 1) % 2
 	sprite.frame = current_frame
 
+
 func frame_set(new):
 	current_frame = new
 	sprite.frame = current_frame
 
+
 func update_pos():
 	position = grid.to_global(grid.map_to_local(Vector2i(grid_pos[0], grid_pos[1])))
+
+
+func warn_pos(pos: Vector2i):
+	grid.warnings[pos] = 0
+
+
+func warn():
+	pass #exists to be overwritten

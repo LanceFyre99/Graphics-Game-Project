@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://8outq1w00o8h"]
+[gd_scene load_steps=26 format=4 uid="uid://8outq1w00o8h"]
 
 [ext_resource type="AudioStream" uid="uid://s8osqlg8syuv" path="res://Audio/Songs/Throwing Fire.ogg" id="1_6fg3j"]
 [ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Scripts/screen_origin.gd" id="1_6lumq"]
@@ -9,10 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://v1rg82ej7hws" path="res://Sprites/playerGrey_walk1.png" id="3_u0wck"]
 [ext_resource type="Texture2D" uid="uid://cbmrn5ikxlby2" path="res://Sprites/playerGrey_walk2.png" id="4_j3llj"]
 [ext_resource type="Shader" uid="uid://bajf66a6uq2pc" path="res://Shaders/dodge.gdshader" id="5_chl2c"]
+[ext_resource type="Shader" uid="uid://dbt0iij44el47" path="res://Shaders/warn.gdshader" id="6_fgcxn"]
+[ext_resource type="Script" uid="uid://dtb0ceetf034y" path="res://Scripts/grid.gd" id="7_4jlx7"]
 [ext_resource type="PackedScene" uid="uid://civokcy7p0t3b" path="res://Attacks/bert_bullet.tscn" id="7_6lumq"]
 [ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
 [ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
 [ext_resource type="Script" uid="uid://dnea26683yksi" path="res://Scripts/deck.gd" id="9_6fg3j"]
+[ext_resource type="Texture2D" uid="uid://4776c2flooo8" path="res://Sprites/blank_tile.png" id="9_mdaqt"]
 [ext_resource type="Script" uid="uid://bg3sv1kf40r45" path="res://Scripts/beat_tracker.gd" id="14_ul75j"]
 [ext_resource type="PackedScene" uid="uid://c2dsdrq6dsegg" path="res://Level/crappy_beat_rect.tscn" id="15_4jlx7"]
 
@@ -31,6 +34,20 @@ texture_region_size = Vector2i(18, 12)
 [sub_resource type="TileSet" id="TileSet_wkftn"]
 tile_size = Vector2i(190, 130)
 sources/1 = SubResource("TileSetAtlasSource_2nifc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_06k41"]
+shader = ExtResource("6_fgcxn")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t67x2"]
+texture = ExtResource("9_mdaqt")
+texture_region_size = Vector2i(18, 12)
+0:0/size_in_atlas = Vector2i(10, 10)
+0:0/0 = 0
+0:0/0/material = SubResource("ShaderMaterial_06k41")
+
+[sub_resource type="TileSet" id="TileSet_xtb7t"]
+tile_size = Vector2i(190, 130)
+sources/0 = SubResource("TileSetAtlasSource_t67x2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_chl2c"]
 shader = ExtResource("5_chl2c")
@@ -73,8 +90,14 @@ uv = PackedVector2Array(-80, 944, 1648, 952, 1648, -40, -112, 16)
 position = Vector2(308, 281)
 scale = Vector2(0.8, 0.8)
 skew = 0.602139
-tile_map_data = PackedByteArray("AAACAAMAAQAAAAAAAAACAAIAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAAEAAMAAQAKAAAAAAAEAAIAAQAKAAAAAAAEAAEAAQAKAAAAAAAEAAAAAQAKAAAAAAAFAAAAAQAKAAAAAAAGAAAAAQAKAAAAAAAHAAAAAQAKAAAAAAAHAAEAAQAKAAAAAAAGAAEAAQAKAAAAAAAFAAEAAQAKAAAAAAAFAAIAAQAKAAAAAAAGAAIAAQAKAAAAAAAHAAIAAQAKAAAAAAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAHAAMAAQAKAAAAAAA=")
+tile_map_data = PackedByteArray("AAACAAMAAQAAAAAAAAACAAIAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAAEAAMAAQAKAAAAAAAEAAIAAQAKAAAAAAAEAAEAAQAKAAAAAAAEAAAAAQAKAAAAAAAFAAAAAQAKAAAAAAAGAAAAAQAKAAAAAAAHAAAAAQAKAAAAAAAHAAEAAQAKAAAAAAAGAAEAAQAKAAAAAAAFAAEAAQAKAAAAAAAFAAIAAQAKAAAAAAAGAAIAAQAKAAAAAAAHAAIAAQAKAAAAAAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAHAAMAAQAKAAAAAAD4//v/AQAAAAoAAAA=")
 tile_set = SubResource("TileSet_wkftn")
+script = ExtResource("7_4jlx7")
+
+[node name="WarnGrid" type="TileMapLayer" parent="BattleGrid"]
+scale = Vector2(1, 1)
+tile_map_data = PackedByteArray("AAD4//v/AQAAAAoAAAA=")
+tile_set = SubResource("TileSet_xtb7t")
 
 [node name="Player" type="Area2D" parent="."]
 position = Vector2(447, 410)
@@ -111,6 +134,7 @@ uv = PackedVector2Array(-296, 32, 192, 32, 144, -40, -32, -40, -56, -72, -88, -4
 [node name="CrappyBeatRect" parent="BeatTracker" instance=ExtResource("15_4jlx7")]
 position = Vector2(-96, 128)
 
+[connection signal="grid_update" from="." to="BattleGrid" method="_on_grid_update"]
 [connection signal="timeout" from="BPMTimer" to="BPMTimer" method="_on_timeout"]
 [connection signal="timeout" from="BPMTimer" to="BeatTracker" method="_on_bpm_tracker_timeout"]
 [connection signal="move" from="Player" to="." method="_on_player_move"]

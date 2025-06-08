@@ -8,6 +8,7 @@ var temp_attack_num = 0
 signal attack_move
 signal check_player_hit
 signal enemy_move
+signal grid_update
 
 func _ready():
 	spawn_wave()
@@ -39,6 +40,7 @@ func _on_attack_move_ack():
 func post_attack_movement():
 	check_player_hit.emit()
 	enemy_move.emit()
+	grid_update.emit()
 	temp_attack_num = attack_num
 
 

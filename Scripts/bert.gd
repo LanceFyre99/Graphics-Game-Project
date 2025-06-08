@@ -20,7 +20,7 @@ func beat_step():
 		shot_timer = randi() % 4 + 3
 	elif shot_timer == 1:
 		frame_set(2)
-		#trigger warning box
+		warn_pos(Vector2i(grid_pos.x - 1, grid_pos.y))
 	else:
 		#movement logic
 		if moving_down and grid_pos[1] >= 3:
@@ -39,7 +39,7 @@ func beat_step():
 func spawn_attack():
 	var shot = bullet.instantiate()
 	
-	shot.position_self(grid_pos)
 	shot.active = true
-	
+	shot.position_self(grid_pos)
 	origin.add_child(shot)
+	shot.warn()

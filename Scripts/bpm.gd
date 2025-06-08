@@ -10,6 +10,6 @@ func _on_timeout():
 	beatnum += 1
 	if beatnum <= 4:
 		$Metronome.play()
-	elif beatnum == 5:
+	if beatnum == 5:
 		$Metronome.queue_free()
 		$BGM.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://8outq1w00o8h"]
+[gd_scene load_steps=20 format=4 uid="uid://8outq1w00o8h"]
 
 [ext_resource type="AudioStream" uid="uid://s8osqlg8syuv" path="res://Audio/Songs/Throwing Fire.ogg" id="1_6fg3j"]
 [ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Scripts/screen_origin.gd" id="1_6lumq"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
 [ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
 [ext_resource type="Script" uid="uid://dnea26683yksi" path="res://Scripts/deck.gd" id="9_6fg3j"]
+[ext_resource type="Script" uid="uid://bg3sv1kf40r45" path="res://Scripts/beat_tracker.gd" id="14_ul75j"]
+[ext_resource type="PackedScene" uid="uid://c2dsdrq6dsegg" path="res://Level/crappy_beat_rect.tscn" id="15_4jlx7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2nifc"]
 texture = ExtResource("1_i5eh5")
@@ -48,55 +50,67 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Root" type="Node"]
-
-[node name="BPMTracker" type="Timer" parent="."]
-script = ExtResource("1_32x38")
-
-[node name="BGM" type="AudioStreamPlayer" parent="BPMTracker"]
-stream = ExtResource("1_6fg3j")
-
-[node name="Metronome" type="AudioStreamPlayer" parent="BPMTracker"]
-stream = ExtResource("3_66v8m")
-max_polyphony = 2
-
-[node name="ScreenOrigin" type="Node2D" parent="."]
+[node name="ScreenOrigin" type="Node2D"]
 script = ExtResource("1_6lumq")
 bert_scene = ExtResource("7_chl2c")
 
-[node name="CrappyBlackBackground" type="Polygon2D" parent="ScreenOrigin"]
+[node name="BPMTimer" type="Timer" parent="."]
+script = ExtResource("1_32x38")
+
+[node name="BGM" type="AudioStreamPlayer" parent="BPMTimer"]
+stream = ExtResource("1_6fg3j")
+
+[node name="Metronome" type="AudioStreamPlayer" parent="BPMTimer"]
+stream = ExtResource("3_66v8m")
+max_polyphony = 2
+
+[node name="CrappyBlackBackground" type="Polygon2D" parent="."]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(1.73481e-05, 912, 1608, 912, 1608, 2.61756e-07, 1.90735e-06, -3.8147e-06)
 uv = PackedVector2Array(-80, 944, 1648, 952, 1648, -40, -112, 16)
 
-[node name="BattleGrid" type="TileMapLayer" parent="ScreenOrigin"]
+[node name="BattleGrid" type="TileMapLayer" parent="."]
 position = Vector2(308, 281)
 scale = Vector2(0.8, 0.8)
 skew = 0.602139
 tile_map_data = PackedByteArray("AAACAAMAAQAAAAAAAAACAAIAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAAEAAMAAQAKAAAAAAAEAAIAAQAKAAAAAAAEAAEAAQAKAAAAAAAEAAAAAQAKAAAAAAAFAAAAAQAKAAAAAAAGAAAAAQAKAAAAAAAHAAAAAQAKAAAAAAAHAAEAAQAKAAAAAAAGAAEAAQAKAAAAAAAFAAEAAQAKAAAAAAAFAAIAAQAKAAAAAAAGAAIAAQAKAAAAAAAHAAIAAQAKAAAAAAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAHAAMAAQAKAAAAAAA=")
 tile_set = SubResource("TileSet_wkftn")
 
-[node name="Player" type="Area2D" parent="ScreenOrigin"]
+[node name="Player" type="Area2D" parent="."]
 position = Vector2(447, 410)
 script = ExtResource("2_i5eh5")
 
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="ScreenOrigin/Player"]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("ShaderMaterial_chl2c")
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6lumq")
 offset = Vector2(0, -52.825)
 
-[node name="Deck" type="Node" parent="ScreenOrigin/Player"]
+[node name="Deck" type="Node" parent="Player"]
 script = ExtResource("9_6fg3j")
 
-[node name="Bert" parent="ScreenOrigin" instance=ExtResource("7_chl2c")]
+[node name="Bert" parent="." instance=ExtResource("7_chl2c")]
 position = Vector2(-149, -81)
 
-[node name="BertBullet" parent="ScreenOrigin" instance=ExtResource("7_6lumq")]
+[node name="BertBullet" parent="." instance=ExtResource("7_6lumq")]
 position = Vector2(-146, -241)
 
-[node name="Goob" parent="ScreenOrigin" instance=ExtResource("8_wp1u0")]
+[node name="Goob" parent="." instance=ExtResource("8_wp1u0")]
 position = Vector2(-289, -69)
 
-[connection signal="timeout" from="BPMTracker" to="BPMTracker" method="_on_timeout"]
-[connection signal="move" from="ScreenOrigin/Player" to="ScreenOrigin" method="_on_player_move"]
+[node name="BeatTracker" type="Node2D" parent="."]
+position = Vector2(800, 900)
+script = ExtResource("14_ul75j")
+
+[node name="CrappyTrackerBg" type="Polygon2D" parent="BeatTracker"]
+scale = Vector2(1.5, 1.5)
+color = Color(0.3, 0.3, 0.3, 1)
+polygon = PackedVector2Array(-248, 0, 248, 0, 224, -40, 16, -40, 0, -56, -16, -40, -224, -40)
+uv = PackedVector2Array(-296, 32, 192, 32, 144, -40, -32, -40, -56, -72, -88, -40, -256, -40)
+
+[node name="CrappyBeatRect" parent="BeatTracker" instance=ExtResource("15_4jlx7")]
+position = Vector2(-96, 128)
+
+[connection signal="timeout" from="BPMTimer" to="BPMTimer" method="_on_timeout"]
+[connection signal="timeout" from="BPMTimer" to="BeatTracker" method="_on_bpm_tracker_timeout"]
+[connection signal="move" from="Player" to="." method="_on_player_move"]

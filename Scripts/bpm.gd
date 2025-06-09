@@ -7,6 +7,8 @@ var moved = false
 signal timeout_no_move
 
 func _ready():
+	$BGM.stream = AudioStreamOggVorbis.load_from_file(LevelVars.ost)
+	
 	wait_time = 60.0 / LevelVars.bpm
 	start()
 

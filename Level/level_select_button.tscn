@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3frjkadqb680"]
+
+[ext_resource type="Script" uid="uid://sqe1fp4wu54x" path="res://Scripts/level_select_button.gd" id="1_3iks0"]
+
+[node name="Button" type="Button"]
+theme_override_font_sizes/font_size = 48
+text = "Throwing Fire"
+script = ExtResource("1_3iks0")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -13,6 +13,8 @@ signal grid_update
 func _ready():
 	spawn_wave()
 
+func _on_player_miss():
+	_on_player_move()
 
 func _on_player_move():
 	if attack_num <= 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://8outq1w00o8h"]
+[gd_scene load_steps=30 format=4 uid="uid://8outq1w00o8h"]
 
 [ext_resource type="AudioStream" uid="uid://s8osqlg8syuv" path="res://Audio/Songs/Throwing Fire.ogg" id="1_6fg3j"]
 [ext_resource type="Script" uid="uid://bef0qoda5gboa" path="res://Scripts/screen_origin.gd" id="1_6lumq"]
@@ -16,10 +16,18 @@
 [ext_resource type="PackedScene" uid="uid://bm2lkqk6ekxd2" path="res://Enemies/bert.tscn" id="7_chl2c"]
 [ext_resource type="Script" uid="uid://duark4allpx8b" path="res://Scripts/damage_sfx.gd" id="7_xtb7t"]
 [ext_resource type="PackedScene" uid="uid://ci468u78q2cxa" path="res://Enemies/goob.tscn" id="8_wp1u0"]
+[ext_resource type="Shader" uid="uid://dcge8m34n2hpg" path="res://Shaders/dancefloor.gdshader" id="8_xtb7t"]
 [ext_resource type="Script" uid="uid://dnea26683yksi" path="res://Scripts/deck.gd" id="9_6fg3j"]
 [ext_resource type="Texture2D" uid="uid://4776c2flooo8" path="res://Sprites/blank_tile.png" id="9_mdaqt"]
 [ext_resource type="Script" uid="uid://bg3sv1kf40r45" path="res://Scripts/beat_tracker.gd" id="14_ul75j"]
 [ext_resource type="PackedScene" uid="uid://c2dsdrq6dsegg" path="res://Level/crappy_beat_rect.tscn" id="15_4jlx7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kmry4"]
+shader = ExtResource("8_xtb7t")
+shader_parameter/bpm = 200.0
+shader_parameter/corners = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/dancefloor = true
+shader_parameter/dancestep = false
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2nifc"]
 texture = ExtResource("1_i5eh5")
@@ -94,10 +102,11 @@ polygon = PackedVector2Array(1.73481e-05, 912, 1608, 912, 1608, 2.61756e-07, 1.9
 uv = PackedVector2Array(-80, 944, 1648, 952, 1648, -40, -112, 16)
 
 [node name="BattleGrid" type="TileMapLayer" parent="."]
-position = Vector2(308, 281)
+material = SubResource("ShaderMaterial_kmry4")
+position = Vector2(310, 280)
 scale = Vector2(0.8, 0.8)
 skew = 0.602139
-tile_map_data = PackedByteArray("AAACAAMAAQAAAAAAAAACAAIAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAAEAAMAAQAKAAAAAAAEAAIAAQAKAAAAAAAEAAEAAQAKAAAAAAAEAAAAAQAKAAAAAAAFAAAAAQAKAAAAAAAGAAAAAQAKAAAAAAAHAAAAAQAKAAAAAAAHAAEAAQAKAAAAAAAGAAEAAQAKAAAAAAAFAAEAAQAKAAAAAAAFAAIAAQAKAAAAAAAGAAIAAQAKAAAAAAAHAAIAAQAKAAAAAAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAHAAMAAQAKAAAAAAD4//v/AQAAAAoAAAA=")
+tile_map_data = PackedByteArray("AAACAAMAAQAAAAAAAAACAAIAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAAEAAMAAQAKAAAAAAAEAAIAAQAKAAAAAAAEAAEAAQAKAAAAAAAEAAAAAQAKAAAAAAAFAAAAAQAKAAAAAAAGAAAAAQAKAAAAAAAHAAAAAQAKAAAAAAAHAAEAAQAKAAAAAAAGAAEAAQAKAAAAAAAFAAEAAQAKAAAAAAAFAAIAAQAKAAAAAAAGAAIAAQAKAAAAAAAHAAIAAQAKAAAAAAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAHAAMAAQAKAAAAAAA=")
 tile_set = SubResource("TileSet_wkftn")
 script = ExtResource("7_4jlx7")
 
@@ -145,5 +154,6 @@ position = Vector2(-96, 128)
 [connection signal="timeout" from="BPMTimer" to="BPMTimer" method="_on_timeout"]
 [connection signal="timeout" from="BPMTimer" to="BeatTracker" method="_on_bpm_tracker_timeout"]
 [connection signal="timeout_no_move" from="BPMTimer" to="Player" method="_on_timeout_no_move"]
+[connection signal="miss" from="Player" to="." method="_on_player_miss"]
 [connection signal="miss" from="Player" to="BPMTimer/Damage" method="_on_player_miss"]
 [connection signal="move" from="Player" to="." method="_on_player_move"]

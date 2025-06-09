@@ -10,7 +10,7 @@ func _ready():
 	wait_time = 60.0 / LevelVars.bpm
 	start()
 
-func _process(delta):
+func _process(_delta):
 	if time_left <= wait_time / 2 and not halfway:
 		halfway = true
 		if not moved:
